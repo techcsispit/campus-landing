@@ -133,7 +133,7 @@ fetch("events.json")
   })
   .then((events) => {
     EVENTS = events;
-    renderEvents("All");
+    renderEvents(document.querySelector(".filter.active").dataset.type);
     updateCountdown();
   })
   .catch(() => {
