@@ -32,6 +32,7 @@ themeToggle.addEventListener("click", () => {
 // Events
 const list = document.getElementById("event-list");
 let EVENTS = [];
+let loadFailed = false;
 
 function formatDate(event) {
   const date = new Date(`${event.date}T${event.time}`);
@@ -83,6 +84,8 @@ function downloadCalendarEvent(event) {
 }
 
 function renderEvents(type) {
+  if (loadFailed) return;
+
   const now = new Date();
   list.replaceChildren();
 
@@ -137,6 +140,7 @@ fetch("events.json")
     updateCountdown();
   })
   .catch(() => {
+    loadFailed = true;
     list.innerHTML = "<li>Events could not be loaded right now.</li>";
   });
 
@@ -149,6 +153,8 @@ function nextEvent(){
 
 // Countdown to the next event
 function updateCountdown() {
+  if (loadFailed) return;
+
   const now = new Date();
   const next = EVENTS
       .map((event) => ({
