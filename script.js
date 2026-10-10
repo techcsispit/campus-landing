@@ -132,9 +132,19 @@ fetch("events.json")
     return response.json();
   })
   .then((events) => {
+    // The list is inserted above the later sections. If the browser has just
+    // scrolled to the section named in the URL, keep that section where it is.
+    const target = document.getElementById(location.hash.slice(1));
+    const targetTop = target && target.getBoundingClientRect().top;
+    const atTop = target && Math.abs(targetTop) < 2;
+    const atBottom = target && targetTop >= 0 && targetTop < window.innerHeight &&
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
     EVENTS = events;
     renderEvents("All");
     updateCountdown();
+    if (atTop || atBottom) {
+      window.scrollBy(0, target.getBoundingClientRect().top - targetTop);
+    }
   })
   .catch(() => {
     list.innerHTML = "<li>Events could not be loaded right now.</li>";
