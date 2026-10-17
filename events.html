@@ -13,17 +13,44 @@
 
 <main class="events-section" role="main">
   <h1 class="page-title">Events</h1>
-  <p style="max-width:640px;color:var(--text-secondary);">Workshops, contests, and social gatherings for first-year students.</p>
+  <p class="events-subtitle">Workshops, contests, and social gatherings for first-year students.</p>
 
-  <div class="filters" role="group" aria-label="Filter events">
-    <button class="filter active" data-type="All">All</button>
-    <button class="filter" data-type="Workshop">Workshops</button>
-    <button class="filter" data-type="Contest">Contests</button>
-    <button class="filter" data-type="Social">Social</button>
+  <div class="events-toolbar">
+    <div class="events-tabs-search-row">
+      <div class="events-tabs" role="tablist" aria-label="Event views">
+        <button role="tab" class="event-tab active" id="tab-upcoming" data-tab="upcoming" aria-selected="true" aria-controls="event-list">Upcoming</button>
+        <button role="tab" class="event-tab" id="tab-past" data-tab="past" aria-selected="false" aria-controls="event-list">Past</button>
+        <button role="tab" class="event-tab" id="tab-saved" data-tab="saved" aria-selected="false" aria-controls="event-list">Saved <span class="saved-badge" id="saved-badge" aria-label="0 saved events" hidden>0</span></button>
+      </div>
+
+      <div class="search-box">
+        <svg class="search-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="search" 
+          id="event-search" 
+          class="search-input" 
+          placeholder="Search events or venues..." 
+          aria-label="Search events" 
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Clear search" title="Clear search" hidden>✕</button>
+      </div>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter events by category">
+      <button class="filter active" data-type="All">All</button>
+      <button class="filter" data-type="Workshop">Workshops</button>
+      <button class="filter" data-type="Contest">Contests</button>
+      <button class="filter" data-type="Social">Social</button>
+    </div>
   </div>
 
-  <div id="next-event" style="margin: 48px 0 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border);" aria-label="Next upcoming event"></div>
-  <div id="event-list"></div>
+  <div id="next-event" class="next-event-banner" aria-label="Next upcoming event"></div>
+  <div id="event-list" role="region" aria-live="polite" aria-label="Events list"></div>
 </main>
 
 <footer class="site-footer" role="contentinfo"><p>Freshers' guide — student-run for first-year students. MIT licensed.</p></footer>
